@@ -1,0 +1,17 @@
+{
+  "name": "Your Ritual Focus Timer",
+  "short_name": "Your Ritual",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F9F6F0",
+  "theme_color": "#36221D",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/wired/512/36221D/coffee-beans.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
