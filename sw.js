@@ -1,8 +1,9 @@
 const CACHE_NAME = 'your-ritual-v1';
 const ASSETS = [
   './index.html',
-  './manifest.json',
-  'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4'
+'./manifest.json',
+'./icon.png',
+'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4'
 ];
 
 self.addEventListener('install', (e) => {

@@ -4,20 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Ritual</title>
+    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts: Premium Serif and Clean Geometric Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
+
+    <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#F9F6F0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <!-- Tab Favicon Icon (Diya) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2336221D'%3E%3Cpath d='M12 2s-3.5 4.5-3.5 7.5C8.5 11.43 10.07 13 12 13s3.5-1.57 3.5-3.5C15.5 6.5 12 2 12 2zm6 12c-1.5 0-3 1-3.5 2.5h-5C9 15 7.5 14 6 14c-2 0-4 1.5-4 4.5v.5h20v-.5c0-3-2-4.5-4-4.5z'/%3E%3C/svg%3E">
     <link rel="manifest" href="manifest.json">
 
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F9F6F0; /* Warm Oat Milk / Cream */
+            background-color: #F9F6F0;
         }
         .serif-title {
             font-family: 'Playfair Display', serif;
@@ -26,46 +32,58 @@
 </head>
 <body class="text-[#36221D] min-h-screen flex flex-col justify-between p-6 antialiased selection:bg-[#E6DEC9]">
 
+    <!-- Top Bar -->
     <header class="w-full max-w-md mx-auto flex justify-between items-center pt-6">
-        <h1 class="serif-title text-3xl font-medium tracking-tight text-[#4A322B]">
-            Your <span class="italic text-[#8C6239]">Ritual</span>
-        </h1>
-        <div class="flex items-center gap-2">
-            <button id="reset-stats" class="text-[11px] font-medium tracking-widest uppercase opacity-40 hover:opacity-100 transition-all bg-[#EDE6D9] px-4 py-2 rounded-full text-[#36221D]">
-                Clear Today
+        <div class="flex items-center gap-3">
+            <!-- Minimalist SVG Diya Logo -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 fill-[#36221D] opacity-90" aria-hidden="true">
+                <path d="M12 2s-3.5 4.5-3.5 7.5C8.5 11.43 10.07 13 12 13s3.5-1.57 3.5-3.5C15.5 6.5 12 2 12 2z"/>
+                <path d="M18 14c-1.5 0-3 1-3.5 2.5h-5C9 15 7.5 14 6 14c-2 0-4 1.5-4 4.5v.5h20v-.5c0-3-2-4.5-4-4.5z"/>
+            </svg>
+            <h1 class="serif-title text-3xl font-medium tracking-tight text-[#4A322B]">
+                Your <span class="italic text-[#8C6239]">Ritual</span>
+            </h1>
+        </div>
+        <!-- Gamified Streak Display -->
+        <div class="flex items-center gap-3">
+            <div id="streak-container" class="flex items-center gap-1 bg-[#F2ECE0] border border-[#E6DEC9]/60 px-3 py-1.5 rounded-full text-xs font-semibold text-[#8C6239]" title="Daily Streak">
+                <span>🔥</span> <span id="streak-display">0</span> Days
+            </div>
+            <button id="reset-stats" class="text-[11px] font-medium tracking-widest uppercase opacity-40 hover:opacity-100 transition-all bg-[#EDE6D9] px-3 py-1.5 rounded-full text-[#36221D]">
+                Clear
             </button>
         </div>
     </header>
 
+    <!-- Main Dynamic Interface -->
     <main class="w-full max-w-md mx-auto flex flex-col items-center justify-center flex-grow my-8">
-        
+
+        <!-- Premium Segmented Time Controller -->
         <div class="flex gap-1 mb-14 bg-[#EFE9DC] p-1 rounded-full border border-[#E6DEC9]/60 shadow-inner">
             <button onclick="setTimer(25)" class="time-tab px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 bg-[#36221D] text-[#F9F6F0] shadow-sm">25m</button>
             <button onclick="setTimer(45)" class="time-tab px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-[#543D36] opacity-60 hover:opacity-100">45m</button>
             <button onclick="setTimer(60)" class="time-tab px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-[#543D36] opacity-60 hover:opacity-100">60m</button>
         </div>
 
+        <!-- The Ritual Circle -->
         <div class="relative w-80 h-80 flex items-center justify-center mb-14">
             <div class="absolute inset-0 rounded-full border border-[#E6DEC9] animate-pulse duration-[4000ms]"></div>
             <div class="absolute inset-4 rounded-full border border-[#EDE6D9]"></div>
             <div class="absolute inset-8 rounded-full bg-[#F3EDE0]/50 backdrop-blur-xs"></div>
-            
+
             <div class="flex items-center justify-between w-full px-6 z-10 select-none">
-                <button onclick="adjustTime(-5)" class="w-10 h-10 rounded-full border border-[#E6DEC9] bg-[#F9F6F0]/80 flex items-center justify-center text-lg font-light hover:bg-[#36221D] hover:text-[#F9F6F0] hover:border-transparent active:scale-90 transition-all duration-200 cursor-pointer" title="Subtract 5 minutes">
-                    &minus;
-                </button>
+                <button onclick="adjustTime(-5)" class="w-10 h-10 rounded-full border border-[#E6DEC9] bg-[#F9F6F0]/80 flex items-center justify-center text-lg font-light hover:bg-[#36221D] hover:text-[#F9F6F0] hover:border-transparent active:scale-90 transition-all duration-200 cursor-pointer">&minus;</button>
 
                 <div class="text-center">
                     <span id="timer-display" class="text-6xl font-extralight tracking-tighter tabular-nums block text-[#241512]">25:00</span>
                     <span id="timer-status" class="text-[10px] uppercase tracking-[0.2em] text-[#8C6239] mt-3 block font-semibold">Ready to Begin</span>
                 </div>
 
-                <button onclick="adjustTime(5)" class="w-10 h-10 rounded-full border border-[#E6DEC9] bg-[#F9F6F0]/80 flex items-center justify-center text-lg font-light hover:bg-[#36221D] hover:text-[#F9F6F0] hover:border-transparent active:scale-90 transition-all duration-200 cursor-pointer" title="Add 5 minutes">
-                    &plus;
-                </button>
+                <button onclick="adjustTime(5)" class="w-10 h-10 rounded-full border border-[#E6DEC9] bg-[#F9F6F0]/80 flex items-center justify-center text-lg font-light hover:bg-[#36221D] hover:text-[#F9F6F0] hover:border-transparent active:scale-90 transition-all duration-200 cursor-pointer">&plus;</button>
             </div>
         </div>
 
+        <!-- Organic Floating Control Button -->
         <div class="flex items-center justify-center w-full">
             <button id="primary-btn" class="w-48 py-4.5 bg-[#36221D] text-[#F9F6F0] rounded-full text-sm font-semibold tracking-widest uppercase shadow-xl shadow-[#36221D]/10 hover:bg-[#4A322B] active:scale-95 transition-all duration-300">
                 Begin Focus
@@ -74,51 +92,93 @@
 
     </main>
 
+    <!-- Elevated Dynamic Progress Board -->
     <footer class="w-full max-w-md mx-auto bg-[#F2ECE0] rounded-[2rem] p-6 border border-[#E6DEC9]/60 shadow-xs mb-2">
-        <div class="flex justify-between items-center px-2">
+        <div class="flex justify-between items-center px-2 mb-4 border-b border-[#E6DEC9]/40 pb-3">
             <div>
-                <p class="text-[10px] uppercase tracking-[0.15em] text-[#8C6239] font-bold mb-1.5">Accumulated Mindful Time</p>
-                <p id="total-focus-display" class="text-3xl font-light text-[#241512]"><span class="font-semibold">0</span> mins</p>
+                <p class="text-[10px] uppercase tracking-[0.15em] text-[#8C6239] font-bold">Current State</p>
+                <p id="focus-rank" class="text-lg font-medium text-[#36221D] mt-0.5">Mundane Mind</p>
             </div>
             <div class="text-right">
-                <p class="text-[10px] uppercase tracking-[0.15em] text-[#8C6239] font-bold mb-1.5">Intervals</p>
-                <p id="session-count-display" class="text-lg font-medium text-[#4A322B]">0 complete</p>
+                <p class="text-[10px] uppercase tracking-[0.15em] text-[#8C6239] font-bold">Intervals</p>
+                <p id="session-count-display" class="text-lg font-medium text-[#4A322B] mt-0.5">0 complete</p>
             </div>
+        </div>
+        <div class="px-2">
+            <p class="text-[10px] uppercase tracking-[0.15em] text-[#8C6239] font-bold mb-1">Accumulated Mindful Time</p>
+            <p id="total-focus-display" class="text-3xl font-light text-[#241512]"><span class="font-semibold">0</span> mins</p>
         </div>
     </footer>
 
+    <!-- Core App Logic -->
     <script>
         let countdown;
-        let timeLeft = 25 * 60; 
+        let timeLeft = 25 * 60;
         let initialTime = 25 * 60;
         let isRunning = false;
-        let secondsTrackedThisSession = 0; 
+        let secondsTrackedThisSession = 0;
 
         const timerDisplay = document.getElementById('timer-display');
         const timerStatus = document.getElementById('timer-status');
         const primaryBtn = document.getElementById('primary-btn');
         const totalFocusDisplay = document.getElementById('total-focus-display');
         const sessionCountDisplay = document.getElementById('session-count-display');
+        const focusRank = document.getElementById('focus-rank');
+        const streakDisplay = document.getElementById('streak-display');
         const resetStatsBtn = document.getElementById('reset-stats');
 
         window.addEventListener('DOMContentLoaded', () => {
             checkAndResetDailyStats();
+            updateStreakEngine();
             loadStats();
             updateDisplay();
         });
 
         function checkAndResetDailyStats() {
-            const todayStr = new Date().toDateString(); 
+            const todayStr = new Date().toDateString();
             const lastActiveDate = localStorage.getItem('lastActiveDate');
 
             if (lastActiveDate !== todayStr) {
                 if (lastActiveDate) {
                     archivePastSession(lastActiveDate);
                 }
-                
-                localStorage.setItem('focusSeconds', '0'); 
+                localStorage.setItem('focusSeconds', '0');
                 localStorage.setItem('focusSessions', '0');
                 localStorage.setItem('lastActiveDate', todayStr);
+            }
+        }
+
+        function updateStreakEngine() {
+            const today = new Date();
+            const todayStr = today.toDateString();
+
+            const yesterday = new Date();
+            yesterday.setDate(today.getDate() - 1);
+            const yesterdayStr = yesterday.toDateString();
+
+            const streakDate = localStorage.getItem('streakDate');
+            let currentStreak = parseInt(localStorage.getItem('streakCount') || '0');
+
+            if (streakDate === yesterdayStr) {
+                // Keep streak intact, user was active yesterday
+            } else if (streakDate !== todayStr) {
+                // Missed a day completely, reset streak calculation
+                currentStreak = 0;
+                localStorage.setItem('streakCount', '0');
+            }
+            streakDisplay.textContent = currentStreak;
+        }
+
+        function incrementStreakIfNeeded() {
+            const todayStr = new Date().toDateString();
+            const streakDate = localStorage.getItem('streakDate');
+            let currentStreak = parseInt(localStorage.getItem('streakCount') || '0');
+
+            if (streakDate !== todayStr) {
+                currentStreak += 1;
+                localStorage.setItem('streakCount', currentStreak.toString());
+                localStorage.setItem('streakDate', todayStr);
+                streakDisplay.textContent = currentStreak;
             }
         }
 
@@ -127,7 +187,7 @@
             const pastSeconds = parseInt(localStorage.getItem('focusSeconds') || '0');
             const pastMinutes = Math.floor(pastSeconds / 60);
             const pastSessions = localStorage.getItem('focusSessions') || '0';
-            
+
             if (pastMinutes > 0) {
                 history[dateString] = { minutes: pastMinutes, sessions: pastSessions };
                 localStorage.setItem('ritualHistory', JSON.stringify(history));
@@ -144,14 +204,14 @@
             if (secondsTrackedThisSession > 0) {
                 commitPartialTime();
             }
-            
+
             if (isRunning) toggleTimer();
             timeLeft = minutes * 60;
             initialTime = timeLeft;
             updateDisplay();
             timerStatus.textContent = "Ready to Begin";
             clearTabHighlights();
-            
+
             document.querySelectorAll('.time-tab').forEach(tab => {
                 if(tab.textContent === `${minutes}m`) {
                     tab.classList.add('bg-[#36221D]', 'text-[#F9F6F0]', 'shadow-sm');
@@ -167,18 +227,17 @@
 
             let currentMinutes = Math.floor(timeLeft / 60);
             let newMinutes = currentMinutes + minuteDelta;
-            
+
             if (newMinutes < 1) newMinutes = 1;
             if (newMinutes > 180) newMinutes = 180;
-            
+
             timeLeft = newMinutes * 60;
-            
+
             if (!isRunning) {
                 initialTime = timeLeft;
                 timerStatus.textContent = "Custom Window Set";
                 clearTabHighlights();
             }
-            
             updateDisplay();
         }
 
@@ -196,14 +255,14 @@
                 primaryBtn.classList.replace('bg-[#8C6239]', 'bg-[#36221D]');
                 timerStatus.textContent = "Ritual Paused";
                 isRunning = false;
-                
+
                 commitPartialTime();
             } else {
                 isRunning = true;
                 primaryBtn.textContent = "Pause";
                 primaryBtn.classList.replace('bg-[#36221D]', 'bg-[#8C6239]');
                 timerStatus.textContent = "In Deep Focus";
-                
+
                 countdown = setInterval(() => {
                     if (timeLeft > 0) {
                         timeLeft--;
@@ -225,48 +284,62 @@
 
             let storedSeconds = parseInt(localStorage.getItem('focusSeconds') || '0');
             localStorage.setItem('focusSeconds', storedSeconds + secondsTrackedThisSession);
-            
-            secondsTrackedThisSession = 0; 
+
+            secondsTrackedThisSession = 0;
             loadStats();
         }
 
         function sessionCompleted() {
             isRunning = false;
             commitPartialTime();
-            
+
             let todaySessions = parseInt(localStorage.getItem('focusSessions') || '0');
             localStorage.setItem('focusSessions', todaySessions + 1);
-            
+
+            incrementStreakIfNeeded();
+
             timeLeft = initialTime;
             updateDisplay();
             loadStats();
-            
+
             primaryBtn.textContent = "Begin Focus";
             primaryBtn.classList.replace('bg-[#8C6239]', 'bg-[#36221D]');
             timerStatus.textContent = "Ritual Complete";
-            
-            if (window.AudioContext || window.webkitAudioContext) {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(330, ctx.currentTime);
-                osc.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.4);
-            }
+
+            const alertSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav");
+            alertSound.volume = 0.6;
+            alertSound.play().catch(err => console.log("Audio interrupted:", err));
         }
 
         function loadStats() {
             const totalSeconds = parseInt(localStorage.getItem('focusSeconds') || '0');
             const minutes = Math.floor(totalSeconds / 60);
             const sessions = localStorage.getItem('focusSessions') || '0';
-            
+
             totalFocusDisplay.innerHTML = `<span class="font-semibold">${minutes}</span> mins`;
             sessionCountDisplay.textContent = `${sessions} complete`;
+
+            // Calculate Dynamic Focus Ranks
+            if (minutes === 0) {
+                focusRank.textContent = "Mundane Mind";
+                focusRank.className = "text-lg font-medium text-[#36221D]/60 mt-0.5";
+            } else if (minutes > 0 && minutes < 25) {
+                focusRank.textContent = "Spark Ignition";
+                focusRank.className = "text-lg font-semibold text-[#8C6239] mt-0.5";
+            } else if (minutes >= 25 && minutes < 90) {
+                focusRank.textContent = "Steady Flame";
+                focusRank.className = "text-lg font-semibold text-[#4A322B] mt-0.5";
+            } else if (minutes >= 90 && minutes < 180) {
+                focusRank.textContent = "Deep Flow State";
+                focusRank.className = "text-lg font-bold text-[#36221D] tracking-wide mt-0.5";
+            } else {
+                focusRank.textContent = "Ritual Master 🧘‍♂️";
+                focusRank.className = "text-lg font-extrabold text-[#8C6239] tracking-wider animate-bounce mt-0.5";
+            }
         }
 
         resetStatsBtn.addEventListener('click', () => {
-            if(confirm("Reset your ritual progress for today?")) {
+            if(confirm("Reset your ritual progress for today? Your overall streak will stay safe.")) {
                 localStorage.setItem('focusSeconds', '0');
                 localStorage.setItem('focusSessions', '0');
                 secondsTrackedThisSession = 0;
@@ -277,7 +350,7 @@
         primaryBtn.addEventListener('click', toggleTimer);
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(err => console.log("SW registration failed", err));
+            navigator.serviceWorker.register('sw.js').catch(err => console.log("SW failed", err));
         }
     </script>
 </body>
