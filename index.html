@@ -92,21 +92,24 @@
 
     </main>
 
-    <!-- Elevated Dynamic Progress Board -->
-    <footer class="w-full max-w-md mx-auto bg-[#F2ECE0] rounded-[2rem] p-6 border border-[#E6DEC9]/60 shadow-xs mb-2">
-        <div class="flex justify-between items-center px-2 mb-4 border-b border-[#E6DEC9]/40 pb-3">
-            <div>
+    <!-- Elevated Centered Progress Board -->
+    <footer class="w-full max-w-md mx-auto bg-[#F2ECE0] rounded-[2rem] p-6 border border-[#E6DEC9]/60 shadow-xs mb-2 flex flex-col items-center text-center">
+        <!-- Ranks & Mini-Interval Row -->
+        <div class="w-full flex justify-between items-center px-2 mb-4 border-b border-[#E6DEC9]/40 pb-3">
+            <div class="text-left">
                 <p class="text-[10px] uppercase tracking-[0.15em] text-[#8C6239] font-bold">Current State</p>
-                <p id="focus-rank" class="text-lg font-medium text-[#36221D] mt-0.5">Mundane Mind</p>
+                <p id="focus-rank" class="text-base font-medium text-[#36221D] mt-0.5">Mundane Mind</p>
             </div>
             <div class="text-right">
                 <p class="text-[10px] uppercase tracking-[0.15em] text-[#8C6239] font-bold">Intervals</p>
-                <p id="session-count-display" class="text-lg font-medium text-[#4A322B] mt-0.5">0 complete</p>
+                <p id="session-count-display" class="text-base font-medium text-[#4A322B] mt-0.5">0 complete</p>
             </div>
         </div>
-        <div class="px-2">
+
+        <!-- Fully Centered Total Time Block -->
+        <div class="py-1">
             <p class="text-[10px] uppercase tracking-[0.15em] text-[#8C6239] font-bold mb-1">Accumulated Mindful Time</p>
-            <p id="total-focus-display" class="text-3xl font-light text-[#241512]"><span class="font-semibold">0</span> mins</p>
+            <p id="total-focus-display" class="text-4xl font-light text-[#241512] tracking-tight"><span class="font-semibold">0</span> mins</p>
         </div>
     </footer>
 
@@ -160,9 +163,8 @@
             let currentStreak = parseInt(localStorage.getItem('streakCount') || '0');
 
             if (streakDate === yesterdayStr) {
-                // Keep streak intact, user was active yesterday
+                // Keep streak intact
             } else if (streakDate !== todayStr) {
-                // Missed a day completely, reset streak calculation
                 currentStreak = 0;
                 localStorage.setItem('streakCount', '0');
             }
@@ -322,19 +324,19 @@
             // Calculate Dynamic Focus Ranks
             if (minutes === 0) {
                 focusRank.textContent = "Mundane Mind";
-                focusRank.className = "text-lg font-medium text-[#36221D]/60 mt-0.5";
+                focusRank.className = "text-base font-medium text-[#36221D]/60 mt-0.5";
             } else if (minutes > 0 && minutes < 25) {
                 focusRank.textContent = "Spark Ignition";
-                focusRank.className = "text-lg font-semibold text-[#8C6239] mt-0.5";
+                focusRank.className = "text-base font-semibold text-[#8C6239] mt-0.5";
             } else if (minutes >= 25 && minutes < 90) {
                 focusRank.textContent = "Steady Flame";
-                focusRank.className = "text-lg font-semibold text-[#4A322B] mt-0.5";
+                focusRank.className = "text-base font-semibold text-[#4A322B] mt-0.5";
             } else if (minutes >= 90 && minutes < 180) {
                 focusRank.textContent = "Deep Flow State";
-                focusRank.className = "text-lg font-bold text-[#36221D] tracking-wide mt-0.5";
+                focusRank.className = "text-base font-bold text-[#36221D] tracking-wide mt-0.5";
             } else {
                 focusRank.textContent = "Ritual Master 🧘‍♂️";
-                focusRank.className = "text-lg font-extrabold text-[#8C6239] tracking-wider animate-bounce mt-0.5";
+                focusRank.className = "text-base font-extrabold text-[#8C6239] tracking-wider animate-bounce mt-0.5";
             }
         }
 
