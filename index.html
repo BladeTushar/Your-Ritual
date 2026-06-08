@@ -4,19 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Ritual</title>
-    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Google Fonts: Premium Serif and Clean Geometric Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#F9F6F0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <!-- Tab Favicon Icon (Diya) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2336221D'%3E%3Cpath d='M12 2s-3.5 4.5-3.5 7.5C8.5 11.43 10.07 13 12 13s3.5-1.57 3.5-3.5C15.5 6.5 12 2 12 2zm6 12c-1.5 0-3 1-3.5 2.5h-5C9 15 7.5 14 6 14c-2 0-4 1.5-4 4.5v.5h20v-.5c0-3-2-4.5-4-4.5z'/%3E%3C/svg%3E">
     <link rel="manifest" href="manifest.json">
 
@@ -32,10 +28,8 @@
 </head>
 <body class="text-[#36221D] min-h-screen flex flex-col justify-between p-6 antialiased selection:bg-[#E6DEC9]">
 
-    <!-- Top Bar -->
     <header class="w-full max-w-md mx-auto flex justify-between items-center pt-6">
         <div class="flex items-center gap-3">
-            <!-- Minimalist SVG Diya Logo -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 fill-[#36221D] opacity-90" aria-hidden="true">
                 <path d="M12 2s-3.5 4.5-3.5 7.5C8.5 11.43 10.07 13 12 13s3.5-1.57 3.5-3.5C15.5 6.5 12 2 12 2z"/>
                 <path d="M18 14c-1.5 0-3 1-3.5 2.5h-5C9 15 7.5 14 6 14c-2 0-4 1.5-4 4.5v.5h20v-.5c0-3-2-4.5-4-4.5z"/>
@@ -44,7 +38,6 @@
                 Your <span class="italic text-[#8C6239]">Ritual</span>
             </h1>
         </div>
-        <!-- Gamified Streak Display -->
         <div class="flex items-center gap-3">
             <div id="streak-container" class="flex items-center gap-1 bg-[#F2ECE0] border border-[#E6DEC9]/60 px-3 py-1.5 rounded-full text-xs font-semibold text-[#8C6239]" title="Daily Streak">
                 <span>🔥</span> <span id="streak-display">0</span> Days
@@ -55,17 +48,14 @@
         </div>
     </header>
 
-    <!-- Main Dynamic Interface -->
     <main class="w-full max-w-md mx-auto flex flex-col items-center justify-center flex-grow my-8">
 
-        <!-- Premium Segmented Time Controller -->
         <div class="flex gap-1 mb-14 bg-[#EFE9DC] p-1 rounded-full border border-[#E6DEC9]/60 shadow-inner">
             <button onclick="setTimer(25)" class="time-tab px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 bg-[#36221D] text-[#F9F6F0] shadow-sm">25m</button>
             <button onclick="setTimer(45)" class="time-tab px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-[#543D36] opacity-60 hover:opacity-100">45m</button>
             <button onclick="setTimer(60)" class="time-tab px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-[#543D36] opacity-60 hover:opacity-100">60m</button>
         </div>
 
-        <!-- The Ritual Circle -->
         <div class="relative w-80 h-80 flex items-center justify-center mb-14">
             <div class="absolute inset-0 rounded-full border border-[#E6DEC9] animate-pulse duration-[4000ms]"></div>
             <div class="absolute inset-4 rounded-full border border-[#EDE6D9]"></div>
@@ -83,7 +73,6 @@
             </div>
         </div>
 
-        <!-- Organic Floating Control Button -->
         <div class="flex items-center justify-center w-full">
             <button id="primary-btn" class="w-48 py-4.5 bg-[#36221D] text-[#F9F6F0] rounded-full text-sm font-semibold tracking-widest uppercase shadow-xl shadow-[#36221D]/10 hover:bg-[#4A322B] active:scale-95 transition-all duration-300">
                 Begin Focus
@@ -92,9 +81,7 @@
 
     </main>
 
-    <!-- Elevated Centered Progress Board -->
     <footer class="w-full max-w-md mx-auto bg-[#F2ECE0] rounded-[2rem] p-6 border border-[#E6DEC9]/60 shadow-xs mb-2 flex flex-col items-center text-center">
-        <!-- Ranks & Mini-Interval Row -->
         <div class="w-full flex justify-between items-center px-2 mb-4 border-b border-[#E6DEC9]/40 pb-3">
             <div class="text-left">
                 <p class="text-[10px] uppercase tracking-[0.15em] text-[#8C6239] font-bold">Current State</p>
@@ -106,24 +93,18 @@
             </div>
         </div>
 
-        <!-- Fully Centered Total Time Block -->
         <div class="py-1">
             <p class="text-[10px] uppercase tracking-[0.15em] text-[#8C6239] font-bold mb-1">Accumulated Mindful Time</p>
             <p id="total-focus-display" class="text-4xl font-light text-[#241512] tracking-tight"><span class="font-semibold">0</span> mins</p>
         </div>
     </footer>
 
-    <!-- Core App Logic -->
     <script>
         let countdown;
         let timeLeft = 25 * 60;
         let initialTime = 25 * 60;
         let isRunning = false;
         let secondsTrackedThisSession = 0;
-
-        // Global Pre-buffered Audio Asset
-        const alertSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav");
-        alertSound.volume = 0.6;
 
         const timerDisplay = document.getElementById('timer-display');
         const timerStatus = document.getElementById('timer-status');
@@ -140,6 +121,57 @@
             loadStats();
             updateDisplay();
         });
+
+        // NATIVE AUDIO ENGINE: Synthesizes a premium layered focus bell with a click-free fade-in ramp completely offline
+        function playNativeChime() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const ctx = new AudioContext();
+
+                // Establish a primary master volume control node
+                const masterGain = ctx.createGain();
+                masterGain.connect(ctx.destination);
+
+                // ANTI-CRACKING RAMP: Start at absolute silence, then smoothly glide up to full volume
+                masterGain.gain.setValueAtTime(0, ctx.currentTime);
+                masterGain.gain.linearRampToValueAtTime(1.2, ctx.currentTime + 0.02); // 20ms fade-in eliminates digital snap
+
+                // Premium elegant exponential decay trail over 3.5 seconds
+                masterGain.gain.setValueAtTime(1.2, ctx.currentTime + 0.02);
+                masterGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 3.5);
+
+                // Layer 1: Fundamental warm frequency (A4 - 440Hz)
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(440, ctx.currentTime);
+                gain1.gain.setValueAtTime(0.6, ctx.currentTime);
+
+                // Layer 2: Harmonic overtone for a crystal-clear chime ring (E5 - 660Hz)
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(660, ctx.currentTime);
+                gain2.gain.setValueAtTime(0.4, ctx.currentTime);
+
+                // Wire up the audio node infrastructure
+                osc1.connect(gain1);
+                gain1.connect(masterGain);
+
+                osc2.connect(gain2);
+                gain2.connect(masterGain);
+
+                // Execute synchronized chime strike
+                osc1.start();
+                osc2.start();
+
+                osc1.stop(ctx.currentTime + 3.5);
+                osc2.stop(ctx.currentTime + 3.5);
+            } catch(e) {
+                console.log("Audio pipeline exception handled:", e);
+            }
+        }
 
         function checkAndResetDailyStats() {
             const todayStr = new Date().toDateString();
@@ -167,7 +199,7 @@
             let currentStreak = parseInt(localStorage.getItem('streakCount') || '0');
 
             if (streakDate === yesterdayStr) {
-                // Keep streak intact
+                // Maintain active track
             } else if (streakDate !== todayStr) {
                 currentStreak = 0;
                 localStorage.setItem('streakCount', '0');
@@ -269,12 +301,6 @@
                 primaryBtn.classList.replace('bg-[#36221D]', 'bg-[#8C6239]');
                 timerStatus.textContent = "In Deep Focus";
 
-                // Warm up audio stack to satisfy browser interaction policies
-                alertSound.play().then(() => {
-                    alertSound.pause();
-                    alertSound.currentTime = 0;
-                }).catch(() => {});
-
                 countdown = setInterval(() => {
                     if (timeLeft > 0) {
                         timeLeft--;
@@ -298,7 +324,7 @@
             let totalNewSeconds = storedSeconds + secondsTrackedThisSession;
             localStorage.setItem('focusSeconds', totalNewSeconds);
 
-            // Dynamically increment streak if focus time crosses the 1-minute mark
+            // Commit daily streak the moment cumulative focus time passes the 1-minute threshold
             if (totalNewSeconds >= 60) {
                 incrementStreakIfNeeded();
             }
@@ -310,10 +336,9 @@
         function sessionCompleted() {
             isRunning = false;
 
-            // 1. Play the buffered audio chime instantly
-            alertSound.play().catch(err => console.log("Audio feedback system log:", err));
+            // Instantly strike the loud multi-layered resonant ambient bell
+            playNativeChime();
 
-            // 2. Process data commit and state re-rendering
             commitPartialTime();
             let todaySessions = parseInt(localStorage.getItem('focusSessions') || '0');
             localStorage.setItem('focusSessions', todaySessions + 1);
@@ -336,7 +361,6 @@
             totalFocusDisplay.innerHTML = `<span class="font-semibold">${minutes}</span> mins`;
             sessionCountDisplay.textContent = `${sessions} complete`;
 
-            // Calculate Dynamic Focus Ranks
             if (minutes === 0) {
                 focusRank.textContent = "Mundane Mind";
                 focusRank.className = "text-base font-medium text-[#36221D]/60 mt-0.5";
@@ -367,7 +391,7 @@
         primaryBtn.addEventListener('click', toggleTimer);
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(err => console.log("SW failed", err));
+            navigator.serviceWorker.register('sw.js').catch(err => console.log("SW execution bypassed:", err));
         }
     </script>
 </body>
