@@ -121,6 +121,10 @@
         let isRunning = false;
         let secondsTrackedThisSession = 0;
 
+        // Global Pre-buffered Audio Asset
+        const alertSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav");
+        alertSound.volume = 0.6;
+
         const timerDisplay = document.getElementById('timer-display');
         const timerStatus = document.getElementById('timer-status');
         const primaryBtn = document.getElementById('primary-btn');
@@ -265,6 +269,12 @@
                 primaryBtn.classList.replace('bg-[#36221D]', 'bg-[#8C6239]');
                 timerStatus.textContent = "In Deep Focus";
 
+                // Warm up audio stack to satisfy browser interaction policies
+                alertSound.play().then(() => {
+                    alertSound.pause();
+                    alertSound.currentTime = 0;
+                }).catch(() => {});
+
                 countdown = setInterval(() => {
                     if (timeLeft > 0) {
                         timeLeft--;
@@ -285,7 +295,13 @@
             localStorage.setItem('lastActiveDate', todayStr);
 
             let storedSeconds = parseInt(localStorage.getItem('focusSeconds') || '0');
-            localStorage.setItem('focusSeconds', storedSeconds + secondsTrackedThisSession);
+            let totalNewSeconds = storedSeconds + secondsTrackedThisSession;
+            localStorage.setItem('focusSeconds', totalNewSeconds);
+
+            // Dynamically increment streak if focus time crosses the 1-minute mark
+            if (totalNewSeconds >= 60) {
+                incrementStreakIfNeeded();
+            }
 
             secondsTrackedThisSession = 0;
             loadStats();
@@ -293,11 +309,14 @@
 
         function sessionCompleted() {
             isRunning = false;
-            commitPartialTime();
 
+            // 1. Play the buffered audio chime instantly
+            alertSound.play().catch(err => console.log("Audio feedback system log:", err));
+
+            // 2. Process data commit and state re-rendering
+            commitPartialTime();
             let todaySessions = parseInt(localStorage.getItem('focusSessions') || '0');
             localStorage.setItem('focusSessions', todaySessions + 1);
-
             incrementStreakIfNeeded();
 
             timeLeft = initialTime;
@@ -307,10 +326,6 @@
             primaryBtn.textContent = "Begin Focus";
             primaryBtn.classList.replace('bg-[#8C6239]', 'bg-[#36221D]');
             timerStatus.textContent = "Ritual Complete";
-
-            const alertSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav");
-            alertSound.volume = 0.6;
-            alertSound.play().catch(err => console.log("Audio interrupted:", err));
         }
 
         function loadStats() {
